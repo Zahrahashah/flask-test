@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <title>View Admission - Nasheman</title>
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&family=Poppins:ital,wght@0,500;0,600;0,700;0,800;0,900;1,100&family=Raleway+Dots&family=Raleway:ital,wght@0,100;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css" />
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: #f5f7fa;
+        }
+        .dashboard-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+            margin-bottom: 30px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .dashboard-card h2 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.8rem;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #009970;
+            padding-bottom: 10px;
+        }
+        .review-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            border: 2px solid #009970;
+            border-radius: 10px;
+            background: #ffffff;
+        }
+        .review-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #009970;
+            padding-bottom: 15px;
+        }
+        .review-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #009970;
+            margin: 0;
+        }
+        .review-header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+        .review-section {
+            margin-bottom: 20px;
+        }
+        .review-section h5 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #009970;
+            border-left: 4px solid #009970;
+            padding-left: 10px;
+            margin-bottom: 15px;
+        }
+        .review-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .review-table th, .review-table td {
+            border: 1px solid #d1d8dd;
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+        .review-table th {
+            background: #f1f5f9;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: #34495e;
+            width: 30%;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+        .review-table td {
+            font-family: 'Open Sans', sans-serif;
+            color: #2c3e50;
+            font-size: 0.95rem;
+        }
+        .review-photo {
+            width: 120px;
+            height: 150px;
+            border: 2px dashed #6c757d;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: #6c757d;
+            text-align: center;
+            background: #f8f9fa;
+            overflow: hidden;
+        }
+        .review-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .back-btn a, .view-btn {
+            background: #009970;
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background 0.2s, transform 0.2s;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        .back-btn a:hover, .view-btn:hover {
+            background: #007a5a;
+            transform: translateY(-2px);
+        }
+        .alert {
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .flash-message {
+            position: relative;
+            padding-right: 40px;
+        }
+        .flash-message .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #333333;
+            opacity: 0.7;
+        }
+        .affidavit-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+            margin-bottom: 30px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .affidavit-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.6rem;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #009970;
+            padding-bottom: 10px;
+        }
+        .affidavit-content p {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.95rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        .affidavit-content ol {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        .affidavit-content li {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.95rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                font-family: 'Open Sans', sans-serif;
+                font-size: 12pt;
+                background: #ffffff;
+            }
+            .print-container {
+                padding: 20px;
+            }
+            .print-container h2 {
+                text-align: center;
+                margin-bottom: 20px;
+                font-family: 'Poppins', sans-serif;
+            }
+            .print-container table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            .print-container th, .print-container td {
+                border: 1px solid #000;
+                padding: 8px;
+                text-align: left;
+                font-family: 'Open Sans', sans-serif;
+            }
+            .photo-box {
+                border: 2px dashed #000;
+                background: #ffffff;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar active" id="sidebar">
+        <div class="sidebar-header">
+            <a href="{{ url_for('admin_dashboard') }}">Nasheman</a>
+        </div>
+        <div class="sidebar-nav">
+            <a href="{{ url_for('admin_dashboard') }}"><i class="fa fa-tachometer"></i> Dashboard</a>
+            <a href="{{ url_for('admin_courses') }}"><i class="fa fa-book"></i> Courses</a>
+            <a href="{{ url_for('admin_staff') }}"><i class="fa fa-users"></i> Staff</a>
+            <a href="{{ url_for('admin_events') }}"><i class="fa fa-calendar"></i> Events</a>
+            <a href="{{ url_for('admin_contacts') }}"><i class="fa fa-envelope"></i> Contacts</a>
+            <a href="{{ url_for('admin_popups') }}"><i class="fa fa-bell"></i> Popups</a>
+            <a href="{{ url_for('admin_admissions') }}" class="active"><i class="fa fa-file-text"></i> Admissions</a>
+            <a href="{{ url_for('logout') }}"><i class="fa fa-sign-out"></i> Logout</a>
+        </div>
+    </div>
+   
+    <!-- Toggle Button -->
+    <button class="toggle-btn" id="toggleBtn"><i class="fa fa-bars"></i></button>
+
+    <!-- Main Content -->
+    <div class="main-content active" id="mainContent">
+        <!-- Dashboard Banner -->
+        <section class="dashboard" style="padding-top: 30px;">
+            <div class="container">
+                <div class="dashboard-banner animate__animated animate__fadeIn">
+                    <div class="section_title text-center">
+                        <h2>Admission Details</h2>
+                        <div class="motivational-quote animate__animated animate__fadeIn" id="quote"></div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} flash-message" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    {% if admission %}
+                        <div class="review-container">
+                            <div class="review-header">
+                                <h1>Skill Development Center for Persons with Disabilities, Lahore</h1>
+                                <h2>Application Summary</h2>
+                            </div>
+                            <div class="review-photo">
+                                {% if admission.photo and admission.photo != 'N/A' %}
+                                    <img src="{{ url_for('static', filename=admission.photo) }}" alt="Student Photo">
+                                {% else %}
+                                    No Photo Available
+                                {% endif %}
+                            </div>
+                            <div class="review-section">
+                                <h5>Personal Information</h5>
+                                <table class="review-table">
+                                    <tr><th>Student Name</th><td>{{ admission.student_name or 'N/A' }}</td></tr>
+                                    <tr><th>Gender</th><td>{{ admission.gender or 'N/A' }}</td></tr>
+                                    <tr><th>Age</th><td>{{ admission.age or 'N/A' }}</td></tr>
+                                    <tr><th>Phone #</th><td>{{ admission.phone or 'N/A' }}</td></tr>
+                                    <tr><th>Date of Birth</th><td>{{ admission.dob or 'N/A' }}</td></tr>
+                                    <tr><th>Address</th><td>{{ admission.address or 'N/A' }}</td></tr>
+                                    <tr><th>Student CNIC</th><td>{{ admission.cnic or 'N/A' }}</td></tr>
+                                    <tr><th>Student Occupation</th><td>{{ admission.student_occupation or 'None' }}</td></tr>
+                                </table>
+                            </div>
+                            <div class="review-section">
+                                <h5>Guardian Information</h5>
+                                <table class="review-table">
+                                    <tr><th>Father/Mother Name</th><td>{{ admission.parent_name or 'N/A' }}</td></tr>
+                                    <tr><th>CNIC Number</th><td>{{ admission.parent_cnic or 'N/A' }}</td></tr>
+                                    <tr><th>Contact Number</th><td>{{ admission.parent_phone or 'N/A' }}</td></tr>
+                                    <tr><th>Occupation</th><td>{{ admission.parent_occupation or 'N/A' }}</td></tr>
+                                    <tr><th>Number of Siblings</th><td>{{ admission.num_siblings or 'N/A' }}</td></tr>
+                                    <tr><th>Disability in Siblings</th><td>{{ admission.sibling_disability or 'None' }}</td></tr>
+                                    <tr><th>Guardian Name & Relationship</th><td>{{ admission.guardian_name or 'N/A' }}</td></tr>
+                                    <tr><th>Guardian Contact Number</th><td>{{ admission.guardian_phone or 'N/A' }}</td></tr>
+                                </table>
+                            </div>
+                            <div class="review-section">
+                                <h5>Medical History</h5>
+                                <table class="review-table">
+                                    <tr><th>Disability Certificate</th><td>
+                                        {% if admission.disability_certificate and admission.disability_certificate != 'N/A' %}
+                                            <span>{{ admission.disability_certificate.split('/')[-1] }}</span>
+                                            <a href="{{ url_for('static', filename=admission.disability_certificate) }}" class="view-btn" target="_blank">View</a>
+                                        {% else %}
+                                            No
+                                        {% endif %}
+                                    </td></tr>
+                                    <tr><th>Name of Disability</th><td>{{ admission.disability_name or 'N/A' }}</td></tr>
+                                    <tr><th>Brief Medical History</th><td>{{ admission.medical_history or 'None' }}</td></tr>
+                                    <tr><th>Regular Medication</th><td>{{ admission.regular_medication or 'None' }}</td></tr>
+                                    <tr><th>Assistive Device</th><td>{{ admission.assistive_device or 'None' }}</td></tr>
+                                    <tr><th>Epilepsy</th><td>{{ admission.epilepsy or 'Not provided' }}</td></tr>
+                                    <tr><th>Drug Addiction/Smoking</th><td>{{ admission.drug_addiction or 'Not provided' }}</td></tr>
+                                    <tr><th>Accompanied by Assistant</th><td>{{ admission.assistant or 'Not provided' }}</td></tr>
+                                    <tr><th>Communicable Disease</th><td>{{ admission.communicable_disease or 'None' }}</td></tr>
+                                </table>
+                            </div>
+                            <div class="review-section">
+                                <h5>Education & Preferences</h5>
+                                <table class="review-table">
+                                    <tr><th>Education Level</th><td>{{ admission.education_level or 'N/A' }}</td></tr>
+                                    <tr><th>Degree Certificate</th><td>
+                                        {% if admission.documents and admission.documents != 'N/A' %}
+                                            {% for doc in admission.documents.split(',') %}
+                                                <span>{{ doc.split('/')[-1] }}</span>
+                                                <a href="{{ url_for('static', filename=doc) }}" class="view-btn" target="_blank">View</a><br>
+                                            {% endfor %}
+                                        {% else %}
+                                            No
+                                        {% endif %}
+                                    </td></tr>
+                                    <tr><th>Course Taken</th><td>{{ admission.course or 'N/A' }}</td></tr>
+                                    <tr><th>Admission Type</th><td>{{ admission.admission_type or 'N/A' }}</td></tr>
+                                    <tr><th>Duration of Stay</th><td>{% if admission.duration_stay %}{{ admission.duration_stay }} month(s){% else %}None{% endif %}</td></tr>
+                                    <tr><th>Hostel</th><td>{% if admission.admission_type == 'Hostel Boarder' %}Yes{% else %}No{% endif %}</td></tr>
+                                    <tr><th>Pick & Drop Responsibility</th><td>{{ admission.pick_drop or 'None' }}</td></tr>
+                                    <tr><th>Attached Affidavit</th><td>{{ admission.affidavit or 'No' }}</td></tr>
+                                    <tr><th>Date of Admission</th><td>{{ admission.admission_date or 'N/A' }}</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-warning" role="alert">
+                            No admission details available.
+                        </div>
+                    {% endif %}
+                    <div class="text-center back-btn mt-4">
+                        <a href="{{ url_for('admin_admissions') }}" class="btn">Back to Admissions</a>
+                    </div>
+                </div>
+
+                <!-- Affidavit Card -->
+                {% if admission and admission.affidavit == 'Yes' %}
+                    <div class="affidavit-card">
+                        <h3>Student Affidavit</h3>
+                        <div class="affidavit-content">
+                            <p>I <strong>{{ admission.student_name or 'N/A' }}</strong> residing at <strong>{{ admission.address or 'N/A' }}</strong> solemnly affirm and declare as follows:</p>
+                            <ol>
+                                <li>I am a student currently enrolled at Nasheman for course <strong>{{ admission.course or 'N/A' }}</strong>.</li>
+                                <li>I have never been involved in any criminal activities.</li>
+                                <li>I do not have any police record.</li>
+                                <li>I understand that any involvement in criminal activities or discovery of a police record during my enrollment may result in legal action against me. Additionally, I acknowledge that the institution reserves the right to cancel my admission in such circumstances.</li>
+                                <li>I understand the importance of maintaining a clean record and commit to continue abiding by the law.</li>
+                                <li>I affirm that the information provided in this affidavit is true and correct to the best of my knowledge.</li>
+                            </ol>
+                            <p><strong>Date:</strong> {{ admission.admission_date or 'N/A' }}</p>
+                            <p><strong>Agreement:</strong> Agreed</p>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sidebar toggle
+            const toggleBtn = document.getElementById('toggleBtn');
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+
+            if (toggleBtn && sidebar && mainContent) {
+                toggleBtn.addEventListener('click', () => {
+                    sidebar.classList.toggle('active');
+                    mainContent.classList.toggle('active');
+                });
+            } else {
+                console.error('Sidebar, toggle button, or main content not found');
+            }
+
+            // Close flash messages
+            document.querySelectorAll('.flash-message .close').forEach(closeBtn => {
+                closeBtn.addEventListener('click', () => {
+                    closeBtn.parentElement.style.display = 'none';
+                });
+            });
+
+            // Rotate motivational quotes
+            const quotes = [
+                "Empower learning with every course!",
+                "Your curriculum shapes their future!",
+                "Teach, inspire, transform!",
+                "Knowledge is power—share it!",
+                "Create a path to success!"
+            ];
+            let quoteIndex = 0;
+            const quoteElement = document.getElementById('quote');
+
+            if (quoteElement) {
+                function rotateQuote() {
+                    quoteElement.style.opacity = '0';
+                    setTimeout(() => {
+                        quoteElement.textContent = quotes[quoteIndex];
+                        quoteElement.classList.add('fade');
+                        quoteElement.style.opacity = '1';
+                        setTimeout(() => {
+                            quoteElement.classList.remove('fade');
+                        }, 500);
+                        quoteIndex = (quoteIndex + 1) % quotes.length;
+                    }, 500);
+                }
+                rotateQuote();
+                setInterval(rotateQuote, 2500);
+            } else {
+                console.error('Quote element not found');
+            }
+        });
+    </script>
+</body>
+</html>

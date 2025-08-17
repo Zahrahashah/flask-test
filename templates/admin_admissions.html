@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&family=Poppins:ital,wght@0,500;0,600;0,700;0,800;0,900;1,100&family=Raleway+Dots&family=Raleway:ital,wght@0,100;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css" />
+    <title>Admissions - Nasheman</title>
+    <style>
+        .dashboard-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+        }
+        .dashboard-card h2 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.8rem;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #009970;
+            padding-bottom: 10px;
+        }
+        .admission-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .admission-item:last-child {
+            border-bottom: none;
+        }
+        .print-btn, .view-btn, .delete-btn {
+            background: #009970;
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background 0.2s, transform 0.2s;
+            margin-left: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .print-btn:hover, .view-btn:hover, .delete-btn:hover {
+            background: #007a5a;
+            transform: translateY(-2px);
+        }
+        .delete-btn {
+            background: #dc3545;
+            margin-bottom: 15px;
+        }
+        .delete-btn:hover {
+            background: #c82333;
+        }
+        .checkbox-column {
+            width: 40px;
+            text-align: center;
+        }
+        .alert {
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .flash-message {
+            position: relative;
+            padding-right: 40px;
+        }
+        .flash-message .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #333333;
+            opacity: 0.7;
+        }
+        /* Print-specific styles */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                font-family: 'Open Sans', sans-serif;
+                font-size: 11pt;
+                background: #ffffff;
+                color: #2c3e50;
+                margin: 0;
+            }
+            .print-container {
+                max-width: 900px;
+                margin: 0 auto;
+                padding: 30px;
+                border: 2px solid #009970;
+                border-radius: 10px;
+                background: #ffffff;
+            }
+            .logos {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 20px;
+            }
+            .logos img {
+                max-width: 100px;
+                height: auto;
+            }
+            .header {
+                text-align: center;
+                margin-bottom: 20px;
+                border-bottom: 2px solid #009970;
+                padding-bottom: 10px;
+            }
+            .header h1 {
+                font-family: 'Poppins', sans-serif;
+                font-weight: 700;
+                font-size: 1.8rem;
+                color: #009970;
+                margin: 0;
+            }
+            .header h2 {
+                font-family: 'Poppins', sans-serif;
+                font-weight: 600;
+                font-size: 1.4rem;
+                color: #2c3e50;
+                margin: 5px 0;
+            }
+            .photo-box {
+                width: 120px;
+                height: 150px;
+                border: 2px dashed #000;
+                float: right;
+                margin: 10px 0 10px 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.9rem;
+                color: #6c757d;
+                text-align: center;
+                background: #ffffff;
+                overflow: hidden;
+            }
+            .photo-box img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .section-title {
+                font-family: 'Poppins', sans-serif;
+                font-weight: 600;
+                font-size: 1.2rem;
+                color: #009970;
+                margin: 20px 0 10px;
+                border-left: 4px solid #009970;
+                padding-left: 10px;
+            }
+            .print-container table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+            }
+            .print-container th, .print-container td {
+                border: 1px solid #d1d8dd;
+                padding: 10px;
+                text-align: left;
+                vertical-align: top;
+            }
+            .print-container th {
+                background: #f1f5f9;
+                font-family: 'Poppins', sans-serif;
+                font-weight: 600;
+                color: #34495e;
+                width: 30%;
+                text-transform: uppercase;
+                font-size: 0.9rem;
+            }
+            .print-container td {
+                font-family: 'Open Sans', sans-serif;
+                color: #2c3e50;
+                font-size: 0.95rem;
+            }
+            .documents-list {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            }
+            .documents-list li {
+                margin-bottom: 5px;
+                font-size: 0.95rem;
+            }
+            .signature-section {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 30px;
+                flex-wrap: wrap;
+            }
+            .signature-section div {
+                width: 30%;
+                text-align: center;
+            }
+            .signature-section p {
+                border-top: 1px solid #2c3e50;
+                padding-top: 10px;
+                margin: 0;
+            }
+            .affidavit-card {
+                margin-top: 30px;
+                border: 2px solid #009970;
+                border-radius: 10px;
+                padding: 20px;
+                page-break-before: always;
+            }
+            .affidavit-card h1 {
+                font-family: 'Poppins', sans-serif;
+                font-weight: 700;
+                font-size: 1.8rem;
+                color: #009970;
+                text-align: center;
+                margin: 0 0 10px;
+            }
+            .affidavit-card h2 {
+                font-family: 'Poppins', sans-serif;
+                font-weight: 600;
+                font-size: 1.4rem;
+                color: #2c3e50;
+                text-align: center;
+                margin: 5px 0;
+            }
+            .affidavit-card h3 {
+                font-family: 'Poppins', sans-serif;
+                font-weight: 600;
+                font-size: 1.6rem;
+                color: #2c3e50;
+                text-align: center;
+                margin-bottom: 20px;
+                border-bottom: 2px solid #009970;
+                padding-bottom: 10px;
+            }
+            .affidavit-content p, .affidavit-content li {
+                font-family: 'Open Sans', sans-serif;
+                font-size: 0.95rem;
+                color: #2c3e50;
+                margin-bottom: 10px;
+            }
+            .affidavit-content ol {
+                padding-left: 20px;
+                margin-bottom: 20px;
+            }
+            .print-btn {
+                display: block;
+                margin: 30px auto 0;
+                padding: 10px 25px;
+                background: #009970;
+                color: #ffffff;
+                border: none;
+                border-radius: 6px;
+                font-family: 'Poppins', sans-serif;
+                font-weight: 500;
+                cursor: pointer;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar active no-print" id="sidebar">
+        <div class="sidebar-header">
+            <a href="{{ url_for('admin_dashboard') }}">Nasheman</a>
+        </div>
+        <div class="sidebar-nav">
+            <a href="{{ url_for('admin_dashboard') }}"><i class="fa fa-tachometer"></i> Dashboard</a>
+            <a href="{{ url_for('admin_courses') }}"><i class="fa fa-book"></i> Courses</a>
+            <a href="{{ url_for('admin_staff') }}"><i class="fa fa-users"></i> Staff</a>
+            <a href="{{ url_for('admin_events') }}"><i class="fa fa-calendar"></i> Events</a>
+            <a href="{{ url_for('admin_contacts') }}"><i class="fa fa-envelope"></i> Contacts</a>
+            <a href="{{ url_for('admin_popups') }}"><i class="fa fa-bell"></i> Popups</a>
+            <a href="{{ url_for('admin_admissions') }}" class="active"><i class="fa fa-file-text"></i> Admissions</a>
+            <a href="{{ url_for('logout') }}"><i class="fa fa-sign-out"></i> Logout</a>
+        </div>
+    </div>
+   
+    <!-- Toggle Button -->
+    <button class="toggle-btn no-print" id="toggleBtn"><i class="fa fa-bars"></i></button>
+
+    <!-- Main Content -->
+    <div class="main-content active" id="mainContent">
+        <!-- Dashboard Banner -->
+        <section class="dashboard" style="padding-top: 30px;">
+            <div class="container">
+                <div class="dashboard-banner animate__animated animate__fadeIn no-print">
+                    <div class="section_title text-center">
+                        <h2>Admission Management</h2>
+                        <div class="motivational-quote animate__animated animate__fadeIn" id="quote"></div>
+                    </div>
+                </div>
+
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} flash-message no-print" role="alert">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <!-- Debug Info -->
+                <div class="debug alert alert-info no-print">
+                    Number of admissions: {{ admissions|length }}
+                    {% if admissions|length == 0 %} No admissions found. {% endif %}
+                </div>
+
+                <div class="table-responsive">
+                    <div class="text-right mb-2">
+                        <button class="delete-btn no-print" onclick="deleteSelectedAdmissions()" title="Delete Selected Admissions">
+                            <i class="fa fa-trash"></i> Delete
+                        </button>
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="checkbox-column"><input type="checkbox" id="selectAll"></th>
+                                <th>Student Name</th>
+                                <th>CNIC</th>
+                                <th>Date of Birth</th>
+                                <th>Course</th>
+                                <th>Created At</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if admissions|length > 0 %}
+                                {% for admission in admissions %}
+                                    <tr>
+                                        <td class="checkbox-column">
+                                            {% if admission.id is defined and admission.id is number %}
+                                                <input type="checkbox" class="admission-checkbox" value="{{ admission.id }}">
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ admission.student_name|default('N/A') }}</td>
+                                        <td>{{ admission.cnic|default('N/A') }}</td>
+                                        <td>{{ admission.dob|default('N/A') }}</td>
+                                        <td>{{ admission.course|default('N/A') }}</td>
+                                        <td>{{ admission.created_at|default('N/A') }}</td>
+                                        <td>
+                                            <a href="{{ url_for('view_admission', id=admission.id)|default('') }}" class="view-btn">View</a>
+                                            {% if admission.id is defined and admission.id is number %}
+                                                <button class="print-btn" onclick="printAdmission('{{ admission.id }}')"><i class="fa fa-print"></i> Application</button>
+                                                {% if admission.affidavit == 'Yes' %}
+                                                    <button class="print-btn" onclick="printAffidavit('{{ admission.id }}')"><i class="fa fa-file-text-o"></i> Affidavit</button>
+                                                {% endif %}
+                                            {% else %}
+                                                <span class="text-danger">No valid ID</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr><td colspan="7" class="text-center">No admissions available.</td></tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sidebar toggle
+            const toggleBtn = document.getElementById('toggleBtn');
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+
+            if (toggleBtn && sidebar && mainContent) {
+                toggleBtn.addEventListener('click', () => {
+                    sidebar.classList.toggle('active');
+                    mainContent.classList.toggle('active');
+                });
+            } else {
+                console.error('Sidebar, toggle button, or main content not found');
+            }
+
+            // Close flash messages
+            document.querySelectorAll('.flash-message .close').forEach(closeBtn => {
+                closeBtn.addEventListener('click', () => {
+                    closeBtn.parentElement.style.display = 'none';
+                });
+            });
+
+            // Rotate motivational quotes
+            const quotes = [
+                "Empower learning with every course!",
+                "Your curriculum shapes their future!",
+                "Teach, inspire, transform!",
+                "Knowledge is power—share it!",
+                "Create a path to success!"
+            ];
+            let quoteIndex = 0;
+            const quoteElement = document.getElementById('quote');
+
+            if (quoteElement) {
+                function rotateQuote() {
+                    quoteElement.style.opacity = '0';
+                    setTimeout(() => {
+                        quoteElement.textContent = quotes[quoteIndex];
+                        quoteElement.classList.add('fade');
+                        quoteElement.style.opacity = '1';
+                        setTimeout(() => {
+                            quoteElement.classList.remove('fade');
+                        }, 500);
+                        quoteIndex = (quoteIndex + 1) % quotes.length;
+                    }, 500);
+                }
+                rotateQuote();
+                setInterval(rotateQuote, 2500);
+            } else {
+                console.error('Quote element not found');
+            }
+
+            // Select all checkboxes
+            const selectAllCheckbox = document.getElementById('selectAll');
+            if (selectAllCheckbox) {
+                selectAllCheckbox.addEventListener('change', function() {
+                    const checkboxes = document.querySelectorAll('.admission-checkbox');
+                    checkboxes.forEach(checkbox => {
+                        checkbox.checked = selectAllCheckbox.checked;
+                    });
+                });
+            }
+
+            // Delete selected admissions
+            window.deleteSelectedAdmissions = function() {
+                const checkboxes = document.querySelectorAll('.admission-checkbox:checked');
+                const ids = Array.from(checkboxes).map(checkbox => checkbox.value);
+                if (ids.length === 0) {
+                    alert('Please select at least one admission to delete.');
+                    return;
+                }
+                if (confirm(`Are you sure you want to delete ${ids.length} admission(s)? This action cannot be undone.`)) {
+                    $.ajax({
+                        url: '/api/admission/delete',
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ ids: ids }),
+                        success: function(data) {
+                            if (data.success) {
+                                alert('Selected admissions deleted successfully.');
+                                location.reload(); // Reload to update the table
+                            } else {
+                                console.error('API Error:', data.error || 'Failed to delete admissions');
+                                alert('Error: ' + (data.error || 'Failed to delete admissions'));
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            const errorMsg = xhr.responseJSON && xhr.responseJSON.error ? xhr.responseJSON.error : 'Failed to delete admissions';
+                            console.error('Error deleting admissions:', status, error, xhr.responseText);
+                            alert('Error deleting admissions: ' + errorMsg);
+                        }
+                    });
+                }
+            };
+        });
+
+        // Print Application Summary
+        function printAdmission(admissionId) {
+            admissionId = String(admissionId);
+            $.ajax({
+                url: '/api/admission/' + admissionId,
+                method: 'GET',
+                success: function(data) {
+                    if (data.success && data.admission) {
+                        const admission = data.admission;
+                        const staticBaseUrl = '/static';
+                        const photoPath = admission.photo && admission.photo !== 'N/A' ? admission.photo.replace(/^\/|\/$/g, '') : null;
+                        const photoUrl = photoPath ? `${staticBaseUrl}/${photoPath}` : null;
+                        const documents = admission.documents && Array.isArray(admission.documents) ? admission.documents : (admission.documents ? admission.documents.split(',') : []);
+                        const printWindow = window.open('', '_blank');
+                        printWindow.document.write(`
+                            <html>
+                            <head>
+                                <title>Admission Form - ${admission.student_name || 'Unknown'}</title>
+                                <style>
+                                    body {
+                                        font-family: 'Open Sans', sans-serif;
+                                        font-size: 11pt;
+                                        margin: 20px;
+                                        color: #2c3e50;
+                                    }
+                                    .print-container {
+                                        max-width: 900px;
+                                        margin: 0 auto;
+                                        padding: 30px;
+                                        border: 2px solid #009970;
+                                        border-radius: 10px;
+                                        background: #ffffff;
+                                    }
+                                    .logos {
+                                        display: flex;
+                                        justify-content: space-between;
+                                        margin-bottom: 20px;
+                                    }
+                                    .logos img {
+                                        max-width: 100px;
+                                        height: auto;
+                                    }
+                                    .header {
+                                        text-align: center;
+                                        margin-bottom: 20px;
+                                        border-bottom: 2px solid #009970;
+                                        padding-bottom: 10px;
+                                    }
+                                    .header h1 {
+                                        font-family: 'Poppins', sans-serif;
+                                        font-weight: 700;
+                                        font-size: 1.8rem;
+                                        color: #009970;
+                                        margin: 0;
+                                    }
+                                    .header h2 {
+                                        font-family: 'Poppins', sans-serif;
+                                        font-weight: 600;
+                                        font-size: 1.4rem;
+                                        color: #2c3e50;
+                                        margin: 5px 0;
+                                    }
+                                    .photo-box {
+                                        width: 120px;
+                                        height: 150px;
+                                        border: 2px dashed #000;
+                                        float: right;
+                                        margin: 10px 0 10px 20px;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        font-size: 0.9rem;
+                                        color: #6c757d;
+                                        text-align: center;
+                                        background: #ffffff;
+                                        overflow: hidden;
+                                    }
+                                    .photo-box img {
+                                        width: 100%;
+                                        height: 100%;
+                                        object-fit: cover;
+                                    }
+                                    .section-title {
+                                        font-family: 'Poppins', sans-serif;
+                                        font-weight: 600;
+                                        font-size: 1.2rem;
+                                        color: #009970;
+                                        margin: 20px 0 10px;
+                                        border-left: 4px solid #009970;
+                                        padding-left: 10px;
+                                    }
+                                    table {
+                                        width: 100%;
+                                        border-collapse: collapse;
+                                        margin-bottom: 20px;
+                                    }
+                                    th, td {
+                                        border: 1px solid #d1d8dd;
+                                        padding: 10px;
+                                        text-align: left;
+                                        vertical-align: top;
+                                    }
+                                    th {
+                                        background: #f1f5f9;
+                                        font-family: 'Poppins', sans-serif;
+                                        font-weight: 600;
+                                        color: #34495e;
+                                        width: 30%;
+                                        text-transform: uppercase;
+                                        font-size: 0.9rem;
+                                    }
+                                    td {
+                                        font-family: 'Open Sans', sans-serif;
+                                        color: #2c3e50;
+                                        font-size: 0.95rem;
+                                    }
+                                    .documents-list {
+                                        list-style-type: none;
+                                        padding: 0;
+                                        margin: 0;
+                                    }
+                                    .documents-list li {
+                                        margin-bottom: 5px;
+                                        font-size: 0.95rem;
+                                    }
+                                    .signature-section {
+                                        display: flex;
+                                        justify-content: space-between;
+                                        margin-top: 30px;
+                                        flex-wrap: wrap;
+                                    }
+                                    .signature-section div {
+                                        width: 30%;
+                                        text-align: center;
+                                    }
+                                    .signature-section p {
+                                        border-top: 1px solid #2c3e50;
+                                        padding-top: 10px;
+                                        margin: 0;
+                                    }
+                                    .print-btn {
+                                        display: block;
+                                        margin: 30px auto 0;
+                                        padding: 10px 25px;
+                                        background: #009970;
+                                        color: #ffffff;
+                                        border: none;
+                                        border-radius: 6px;
+                                        font-family: 'Poppins', sans-serif;
+                                        font-weight: 500;
+                                        cursor: pointer;
+                                    }
+                                    @media print {
+                                        .no-print {
+                                            display: none !important;
+                                        }
+                                    }
+                                </style>
+                            </head>
+                            <body>
+                                <div class="print-container">
+                                    <div class="logos">
+                                        <img src="/static/image1.png" alt="Government Logo 1" onerror="this.src='https://via.placeholder.com/100x50?text=Logo+1';" />
+                                        <img src="/static/image2.png" alt="Government Logo 2" onerror="this.src='https://via.placeholder.com/100x50?text=Logo+2';" />
+                                    </div>
+                                    <div class="header">
+                                        <h1>Skill Development Center for Persons with Disabilities, Lahore</h1>
+                                        <h2>Social Welfare & Bait ul Maal Department Punjab, Lahore</h2>
+                                        <h2>Social Welfare Complex, Sector D-1, Near Umar Chowk, Town Ship, Lahore</h2>
+                                        <h2>Admission Registration Form</h2>
+                                    </div>
+                                    <div class="photo-box">
+                                        ${photoUrl ? `<img src="${photoUrl}" alt="Student Photo" onerror="this.parentNode.innerHTML='Passport Size Photo';" />` : 'Passport Size Photo'}
+                                    </div>
+                                    <div class="section-title">Personal Information</div>
+                                    <table>
+                                        <tr><th>Student Name</th><td>${admission.student_name || 'N/A'}</td></tr>
+                                        <tr><th>Gender</th><td>${admission.gender || 'N/A'}</td></tr>
+                                        <tr><th>Age</th><td>${admission.age || 'N/A'}</td></tr>
+                                        <tr><th>Phone #</th><td>${admission.phone || 'N/A'}</td></tr>
+                                        <tr><th>Date of Birth</th><td>${admission.dob || 'N/A'}</td></tr>
+                                        <tr><th>Address</th><td>${admission.address || 'N/A'}</td></tr>
+                                        <tr><th>Disability Certificate</th><td>${admission.disability_certificate && admission.disability_certificate !== 'N/A' ? admission.disability_certificate.split('/').pop() : 'None'}</td></tr>
+                                        <tr><th>Student CNIC</th><td>${admission.cnic || 'N/A'}</td></tr>
+                                        <tr><th>Student Contact No.</th><td>${admission.phone || 'N/A'}</td></tr>
+                                        <tr><th>Student Occupation</th><td>${admission.student_occupation || 'None'}</td></tr>
+                                    </table>
+                                    <div class="section-title">Guardian Information</div>
+                                    <table>
+                                        <tr><th>Father/Mother Name</th><td>${admission.parent_name || 'N/A'}</td></tr>
+                                        <tr><th>Contact Number</th><td>${admission.parent_phone || 'N/A'}</td></tr>
+                                        <tr><th>Occupation</th><td>${admission.parent_occupation || 'N/A'}</td></tr>
+                                        <tr><th>CNIC Number</th><td>${admission.parent_cnic || 'N/A'}</td></tr>
+                                        <tr><th>Number of Siblings</th><td>${admission.num_siblings || 'N/A'}</td></tr>
+                                        <tr><th>Disability in Siblings</th><td>${admission.sibling_disability || 'None'}</td></tr>
+                                        <tr><th>Guardian Name & Relationship</th><td>${admission.guardian_name || 'N/A'}</td></tr>
+                                        <tr><th>Guardian Contact Number</th><td>${admission.guardian_phone || 'N/A'}</td></tr>
+                                    </table>
+                                    <div class="section-title">Medical History</div>
+                                    <table>
+                                        <tr><th>Brief Medical History</th><td>${admission.medical_history || 'None'}</td></tr>
+                                        <tr><th>Name of Disability</th><td>${admission.disability_name || 'N/A'}</td></tr>
+                                        <tr><th>Regular Medication</th><td>${admission.regular_medication || 'None'}</td></tr>
+                                        <tr><th>Assistive Device</th><td>${admission.assistive_device || 'None'}</td></tr>
+                                        <tr><th>Epilepsy</th><td>${admission.epilepsy || 'Not provided'}</td></tr>
+                                        <tr><th>Drug Addiction/Smoking</th><td>${admission.drug_addiction || 'Not provided'}</td></tr>
+                                        <tr><th>Accompanied by Assistant</th><td>${admission.assistant || 'Not provided'}</td></tr>
+                                        <tr><th>Communicable Disease</th><td>${admission.communicable_disease || 'None'}</td></tr>
+                                    </table>
+                                    <div class="section-title">Education & Preferences</div>
+                                    <table>
+                                        <tr><th>Education Level</th><td>${admission.education_level || 'N/A'}</td></tr>
+                                        <tr><th>Degree Certificate</th><td>${documents.length > 0 ? '<ul class="documents-list">' + documents.map(doc => `<li>${doc.split('/').pop()}</li>`).join('') + '</ul>' : 'None'}</td></tr>
+                                        <tr><th>Course Taken</th><td>${admission.course || 'N/A'}</td></tr>
+                                        <tr><th>Admission Type</th><td>${admission.admission_type || 'N/A'}</td></tr>
+                                        <tr><th>Duration of Stay</th><td>${admission.duration_stay ? `${admission.duration_stay} month(s)` : 'None'}</td></tr>
+                                        <tr><th>Hostel</th><td>${admission.admission_type === 'Hostel Boarder' ? 'Yes' : 'No'}</td></tr>
+                                        <tr><th>Pick & Drop Responsibility</th><td>${admission.pick_drop || 'None'}</td></tr>
+                                        <tr><th>Attached Affidavit</th><td>${admission.affidavit || 'Not provided'}</td></tr>
+                                        <tr><th>Date of Admission</th><td>${admission.admission_date || 'N/A'}</td></tr>
+                                    </table>
+                                    <div class="signature-section">
+                                        <div>
+                                            <p>Signature of Candidate</p>
+                                        </div>
+                                        <div>
+                                            <p>Prepared by Assistant Director</p>
+                                        </div>
+                                        <div>
+                                            <p>Approved by Deputy Director</p>
+                                        </div>
+                                    </div>
+                                    <button class="print-btn no-print" onclick="window.print()">Print Application</button>
+                                </div>
+                            </body>
+                            </html>
+                        `);
+                        printWindow.document.close();
+                    } else {
+                        console.error('API Error:', data.error || 'No admission data found');
+                        alert('Error: ' + (data.error || 'No admission data found'));
+                    }
+                },
+                error: function(xhr, status, error) {
+                    const errorMsg = xhr.responseJSON && xhr.responseJSON.error ? xhr.responseJSON.error : 'Failed to fetch admission data';
+                    console.error('Error fetching admission data:', status, error, xhr.responseText);
+                    alert('Error fetching admission data: ' + errorMsg);
+                }
+            });
+        }
+
+        // Print Affidavit Separately
+        function printAffidavit(admissionId) {
+            admissionId = String(admissionId);
+            $.ajax({
+                url: '/api/admission/' + admissionId,
+                method: 'GET',
+                success: function(data) {
+                    if (data.success && data.admission && data.admission.affidavit === 'Yes') {
+                        const admission = data.admission;
+                        const printWindow = window.open('', '_blank');
+                        printWindow.document.write(`
+                            <html>
+                            <head>
+                                <title>Affidavit - ${admission.student_name || 'Unknown'}</title>
+                                <style>
+                                    body {
+                                        font-family: 'Open Sans', sans-serif;
+                                        font-size: 11pt;
+                                        margin: 20px;
+                                        color: #2c3e50;
+                                    }
+                                    .affidavit-card {
+                                        max-width: 900px;
+                                        margin: 0 auto;
+                                        padding: 30px;
+                                        border: 2px solid #009970;
+                                        border-radius: 10px;
+                                        background: #ffffff;
+                                    }
+                                    .logos {
+                                        display: flex;
+                                        justify-content: space-between;
+                                        margin-bottom: 20px;
+                                    }
+                                    .logos img {
+                                        max-width: 100px;
+                                        height: auto;
+                                    }
+                                    .header {
+                                        text-align: center;
+                                        margin-bottom: 20px;
+                                        border-bottom: 2px solid #009970;
+                                        padding-bottom: 10px;
+                                    }
+                                    .header h1 {
+                                        font-family: 'Poppins', sans-serif;
+                                        font-weight: 700;
+                                        font-size: 1.8rem;
+                                        color: #009970;
+                                        margin: 0;
+                                    }
+                                    .header h2 {
+                                        font-family: 'Poppins', sans-serif;
+                                        font-weight: 600;
+                                        font-size: 1.4rem;
+                                        color: #2c3e50;
+                                        margin: 5px 0;
+                                    }
+                                    .affidavit-card h3 {
+                                        font-family: 'Poppins', sans-serif;
+                                        font-weight: 600;
+                                        font-size: 1.6rem;
+                                        color: #2c3e50;
+                                        text-align: center;
+                                        margin-bottom: 20px;
+                                        border-bottom: 2px solid #009970;
+                                        padding-bottom: 10px;
+                                    }
+                                    .affidavit-content p, .affidavit-content li {
+                                        font-family: 'Open Sans', sans-serif;
+                                        font-size: 0.95rem;
+                                        color: #2c3e50;
+                                        margin-bottom: 10px;
+                                    }
+                                    .affidavit-content ol {
+                                        padding-left: 20px;
+                                        margin-bottom: 20px;
+                                    }
+                                    .signature-section {
+                                        display: flex;
+                                        justify-content: space-between;
+                                        margin-top: 30px;
+                                        flex-wrap: wrap;
+                                    }
+                                    .signature-section div {
+                                        width: 30%;
+                                        text-align: center;
+                                    }
+                                    .signature-section p {
+                                        border-top: 1px solid #2c3e50;
+                                        padding-top: 10px;
+                                        margin: 0;
+                                    }
+                                    .print-btn {
+                                        display: block;
+                                        margin: 30px auto 0;
+                                        padding: 10px 25px;
+                                        background: #009970;
+                                        color: #ffffff;
+                                        border: none;
+                                        border-radius: 6px;
+                                        font-family: 'Poppins', sans-serif;
+                                        font-weight: 500;
+                                        cursor: pointer;
+                                    }
+                                    @media print {
+                                        .no-print {
+                                            display: none !important;
+                                        }
+                                    }
+                                </style>
+                            </head>
+                            <body>
+                                <div class="affidavit-card">
+                                    <div class="logos">
+                                        <img src="/static/image1.png" alt="Government Logo 1" onerror="this.src='https://via.placeholder.com/100x50?text=Logo+1';" />
+                                        <img src="/static/image2.png" alt="Government Logo 2" onerror="this.src='https://via.placeholder.com/100x50?text=Logo+2';" />
+                                    </div>
+                                    <div class="header">
+                                        <h1>Skill Development Center for Persons with Disabilities, Lahore</h1>
+                                        <h2>Social Welfare & Bait ul Maal Department Punjab, Lahore</h2>
+                                        <h2>Social Welfare Complex, Sector D-1, Near Umar Chowk, Town Ship, Lahore</h2>
+                                        <h3>Student Affidavit</h3>
+                                    </div>
+                                    <div class="affidavit-content">
+                                        <p>I <strong>${admission.student_name || 'N/A'}</strong> residing at <strong>${admission.address || 'N/A'}</strong> solemnly affirm and declare as follows:</p>
+                                        <ol>
+                                            <li>I am a student currently enrolled at Nasheman for course <strong>${admission.course || 'N/A'}</strong>.</li>
+                                            <li>I have never been involved in any criminal activities.</li>
+                                            <li>I do not have any police record.</li>
+                                            <li>I understand that any involvement in criminal activities or discovery of a police record during my enrollment may result in legal action against me. Additionally, I acknowledge that the institution reserves the right to cancel my admission in such circumstances.</li>
+                                            <li>I understand the importance of maintaining a clean record and commit to continue abiding by the law.</li>
+                                            <li>I affirm that the information provided in this affidavit is true and correct to the best of my knowledge.</li>
+                                        </ol>
+                                        <p><strong>Date:</strong> ${admission.admission_date || 'N/A'}</p>
+                                        <p><strong>Agreement:</strong> Agreed</p>
+                                    </div>
+                                    <div class="signature-section">
+                                        <div>
+                                            <p>Student's Signature</p>
+                                        </div>
+                                        <div>
+                                            <p>Parent's Signature</p>
+                                        </div>
+                                        <div>
+                                            <p>Signature of Assistant Director</p>
+                                        </div>
+                                    </div>
+                                    <button class="print-btn no-print" onclick="window.print()">Print Affidavit</button>
+                                </div>
+                            </body>
+                            </html>
+                        `);
+                        printWindow.document.close();
+                    } else {
+                        console.error('API Error:', data.error || 'No admission data found or no affidavit');
+                        alert('Error: ' + (data.error || 'No affidavit available for this admission'));
+                    }
+                },
+                error: function(xhr, status, error) {
+                    const errorMsg = xhr.responseJSON && xhr.responseJSON.error ? xhr.responseJSON.error : 'Failed to fetch affidavit data';
+                    console.error('Error fetching affidavit data:', status, error, xhr.responseText);
+                    alert('Error fetching affidavit data: ' + errorMsg);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

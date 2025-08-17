@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <title>Nasheman - About</title>
+    <!-- External Libraries -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" crossorigin rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&family=Poppins:wght@500;600;700;800;900&family=Raleway:wght@100;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <style>
+        .facility-panel {
+            border: 2px solid #009970;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .facility-panel:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .facility-icon {
+            color: #009970;
+            margin-right: 0.5rem;
+        }
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0.5rem;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #009970;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        .timeline-item::before {
+            content: '\f111';
+            font-family: 'FontAwesome';
+            position: absolute;
+            left: -1.8rem;
+            top: 0;
+            color: #009970;
+            font-size: 0.8rem;
+        }
+        .quote-block {
+            background-color: #e9f7ef;
+            border-left: 4px solid #009970;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: #333;
+        }
+        .objective-card {
+            border: 1px solid #009970;
+            border-radius: 0.3rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .objective-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .table-advisory {
+            border: 1px solid #009970;
+        }
+        .table-advisory th, .table-advisory td {
+            border: 1px solid #009970;
+        }
+        .staff-group {
+            margin-bottom: 1.5rem;
+        }
+        .staff-group h5 {
+            color: #009970;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .staff-list {
+            list-style: none;
+            padding: 0;
+        }
+        .staff-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e9f7ef;
+            display: flex;
+            justify-content: space-between;
+        }
+        .staff-list li:last-child {
+            border-bottom: none;
+        }
+        .staff-total {
+            background-color: #e9f7ef;
+            padding: 1rem;
+            border-radius: 0.3rem;
+            font-weight: bold;
+            text-align: center;
+        }
+        .staff-table {
+            border: 1px solid #009970;
+        }
+        .staff-table th, .staff-table td {
+            border: 1px solid #009970;
+            padding: 0.75rem;
+        }
+        .staff-table th {
+            background-color: #009970;
+            color: #fff;
+        }
+        .staff-table--total td {
+            background-color: #e9f7ef;
+            font-weight: bold;
+        }
+        .hidden {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navbar  -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="navigation">
+    <div class="container-fluid align-items-stretch">
+        <div class="logo">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Nasheman</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item "><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
+                <li class="nav-item active"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
+                <li class="nav-item "><a class="nav-link" href="{{ url_for('courses') }}">Courses</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('events') }}">Events</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('team') }}">Staff</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('facilities') }}">Facilities</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('admissions') }}">Admissions</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
+                {% if session.get('user_type') == 'guardian' %}
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('guardian_settings') }}">Settings</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+{% elif session.get('user_type') == 'admin' %}
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_dashboard') }}">Admin Dashboard</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+{% else %}
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('guardian_signup_page') }}">Sign Up</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('guardian_login_page') }}">Login</a></li>
+{% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <!-- Hero Banner (Styled like facilities.html) -->
+    <section class="dashboard">
+        <div class="container">
+            <div class="dashboard-banner animate__animated animate__fadeIn">
+                <div class="section_title text-center">
+                    <h2>About Nasheman</h2>
+                    <div class="motivational-quote" id="quote"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Content (Text-Only with Unique Frontend) -->
+    <section class="py-5">
+        <div class="container">
+            <!-- Our History (Timeline) -->
+            <div class="facility-panel animate__animated animate__fadeInUp">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="mb-3"><i class="fa fa-history facility-icon"></i>Our History</h3>
+                        <p class="lead">Since 1989, Nasheman has been a beacon of hope for differently-abled individuals.</p>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <h5>July 1989</h5>
+                                <p>Founded under the Department of Social Welfare & Bait-ul-Maal, Punjab, to provide vocational training and rehabilitation.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <h5>Over the Years</h5>
+                                <p>Trained 2,500–3,000 individuals, empowering them to support themselves and their families with dignity.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <h5>Today</h5>
+                                <p>Continues to instill courage, confidence, and purpose, helping trainees become respectable citizens.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Changing Perspectives (Quote Block) -->
+            <div class="facility-panel animate__animated animate__zoomIn" style="animation-delay: 0.2s;">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="mb-3"><i class="fa fa-lightbulb-o facility-icon"></i>Changing Perspectives</h3>
+                        <p class="lead">Transforming societal views on disability.</p>
+                        <div class="quote-block">
+                            <p>"Disability is not a weakness but a divine condition."</p>
+                        </div>
+                        <p>At Nasheman, we challenge the notion that disability equals helplessness. Our trainees are inspired to perform exemplary services and earn high regard in society, supported by dedicated officers, staff, and social workers of the Social Welfare Department.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Our Objectives (Card Grid) -->
+            <div class="facility-panel animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="mb-3"><i class="fa fa-bullseye facility-icon"></i>Our Objectives</h3>
+                        <p class="lead">Committed to empowering persons with disabilities.</p>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="objective-card">
+                                    <h5><i class="fa fa-users facility-icon"></i>Public Awareness</h5>
+                                    <p>Promote the value of persons with disabilities as integral members of society, deserving dignity and respect.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="objective-card">
+                                    <h5><i class="fa fa-child facility-icon"></i>Parental Education</h5>
+                                    <p>Educate parents to treat their disabled children equally, fostering opportunities for growth and independence.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="objective-card">
+                                    <h5><i class="fa fa-briefcase facility-icon"></i>Employment Awareness</h5>
+                                    <p>Spread awareness of employment opportunities for the disabled to encourage self-reliance.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advisory Committee (Table) -->
+            <div class="facility-panel animate__animated animate__fadeInUp" style="animation-delay: 0.6s;">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="mb-3"><i class="fa fa-group facility-icon"></i>Our Advisory Committee</h3>
+                        <p class="lead">A diverse team guiding Nasheman’s mission.</p>
+                        <div class="table-responsive">
+                            <table class="table table-advisory">
+                                <thead>
+                                    <tr>
+                                        <th>Member Type</th>
+                                        <th>Role</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Active/Retired Government Officials</td>
+                                        <td>Provide policy expertise and oversight</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Philanthropists</td>
+                                        <td>Contribute financial support and resources</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Respected Citizens</td>
+                                        <td>Offer community insights and advocacy</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Experts from Various Fields</td>
+                                        <td>Share specialized knowledge for institutional growth</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="mt-3">The committee maintains a dedicated bank account for donations, ensuring funds are used for institutional needs and trainee welfare.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Staff Section (Grouped Summary, Hardcoded) -->
+            <div class="facility-panel animate__animated animate__fadeInUp" style="animation-delay: 0.8s;">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="mb-3"><i class="fa fa-users facility-icon"></i>Our Staff</h3>
+                        <p class="lead">A dedicated team supporting Nasheman’s mission to empower differently-abled individuals.</p>
+                        <div class="staff-group" role="region" aria-label="Staff Roles by BPS Grade">
+                            <h5>BPS-18</h5>
+                            <ul class="staff-list">
+                                <li><span>Superintendent</span><span>1 Staff</span></li>
+                            </ul>
+                            <h5>BPS-17</h5>
+                            <ul class="staff-list">
+                                <li><span>Social Welfare Officer</span><span>1 Staff</span></li>
+                            </ul>
+                            <h5>BPS-16</h5>
+                            <ul class="staff-list">
+                                <li><span>Assistant</span><span>1 Staff</span></li>
+                            </ul>
+                            <h5>BPS-14</h5>
+                            <ul class="staff-list">
+                                <li><span>Stenographer</span><span>1 Staff</span></li>
+                                <li><span>Senior Clerk</span><span>1 Staff</span></li>
+                            </ul>
+                            <h5>BPS-11</h5>
+                            <ul class="staff-list">
+                                <li><span>Vocational Instructor</span><span>2 Staff</span></li>
+                                <li><span>Junior Clerk</span><span>2 Staff</span></li>
+                                <li><span>Warden</span><span>1 Staff</span></li>
+                            </ul>
+                            <h5>BPS-05</h5>
+                            <ul class="staff-list">
+                                <li><span>Driver</span><span>2 Staff</span></li>
+                                <li><span>Mali</span><span>1 Staff</span></li>
+                                <li><span>Washerman</span><span>1 Staff</span></li>
+                            </ul>
+                            <h5>BPS-02</h5>
+                            <ul class="staff-list">
+                                <li><span>Naib Qasid</span><span>2 Staff</span></li>
+                                <li><span>Chowkidar</span><span>2 Staff</span></li>
+                                <li><span>Sweeper</span><span>2 Staff</span></li>
+                            </ul>
+                            <h5>BPS-01</h5>
+                            <ul class="staff-list">
+                                <li><span>Cook</span><span>1 Staff</span></li>
+                            </ul>
+                            <div class="staff-total">Total: 21 Staff</div>
+                        </div>
+                        <!-- Fallback Table for Accessibility -->
+                        <div class="table-responsive hidden" aria-label="Nasheman Staff Details (Fallback)">
+                            <table class="table staff-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Designation</th>
+                                        <th scope="col">BPS Grade</th>
+                                        <th scope="col">Number of Staff</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Superintendent</td>
+                                        <td>BPS-18</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Social Welfare Officer</td>
+                                        <td>BPS-17</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Assistant</td>
+                                        <td>BPS-16</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Stenographer</td>
+                                        <td>BPS-14</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Senior Clerk</td>
+                                        <td>BPS-14</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Vocational Instructor</td>
+                                        <td>BPS-11</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Junior Clerk</td>
+                                        <td>BPS-11</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Warden</td>
+                                        <td>BPS-11</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Driver</td>
+                                        <td>BPS-05</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mali</td>
+                                        <td>BPS-05</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Washerman</td>
+                                        <td>BPS-05</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Naib Qasid</td>
+                                        <td>BPS-02</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Chowkidar</td>
+                                        <td>BPS-02</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sweeper</td>
+                                        <td>BPS-02</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cook</td>
+                                        <td>BPS-01</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr class="staff-table--total">
+                                        <td>Total</td>
+                                        <td></td>
+                                        <td>21</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    {% include 'footer.html' %}
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const quotes = [
+            "Every child shines in their own unique way!",
+            "Your courage inspires us all!",
+            "You are capable of amazing things!",
+            "Your smile lights up the world!",
+            "Keep growing, you’re unstoppable!"
+        ];
+        let quoteIndex = 0;
+        const quoteElement = document.getElementById('quote');
+
+        if (quoteElement) {
+            function rotateQuote() {
+                quoteElement.style.opacity = '0'; // Fade out
+                setTimeout(() => {
+                    quoteElement.textContent = quotes[quoteIndex];
+                    quoteElement.classList.add('fade');
+                    quoteElement.style.opacity = '1'; // Fade in
+                    setTimeout(() => {
+                        quoteElement.classList.remove('fade');
+                    }, 500); // Match animation duration
+                    quoteIndex = (quoteIndex + 1) % quotes.length;
+                }, 500); // Match transition duration
+            }
+            rotateQuote();
+            setInterval(rotateQuote, 2500); // Total cycle: 500ms fade out + 500ms fade in + 1500ms display
+        } else {
+            console.error('Quote element not found');
+        }
+    });
+    </script>
+</body>
+</html>

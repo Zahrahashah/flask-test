@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <title>Nasheman - Facilities</title>
+    <!-- External Libraries -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" crossorigin rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&family=Poppins:wght@500;600;700;800;900&family=Raleway:wght@100;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <style>
+        .facility-panel {
+            border: 2px solid #009970;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .facility-panel:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .facility-icon {
+            color: #009970;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar  -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="navigation">
+    <div class="container-fluid align-items-stretch">
+        <div class="logo">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Nasheman</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item "><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
+                <li class="nav-item active"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
+                <li class="nav-item "><a class="nav-link" href="{{ url_for('courses') }}">Courses</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('events') }}">Events</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('team') }}">Staff</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('facilities') }}">Facilities</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('admissions') }}">Admissions</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
+                {% if session.get('user_type') == 'guardian' %}
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('guardian_settings') }}">Settings</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+{% elif session.get('user_type') == 'admin' %}
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_dashboard') }}">Admin Dashboard</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+{% else %}
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('guardian_signup_page') }}">Sign Up</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('guardian_login_page') }}">Login</a></li>
+{% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <!-- Hero Banner (Exact match from original) -->
+    <section class="dashboard">
+        <div class="container">
+            <div class="dashboard-banner animate__animated animate__fadeIn">
+                <div class="section_title text-center">
+                    <h2>Facilities & Support</h2>
+                    <div class="motivational-quote" id="quote"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facilities Content (Text-Only with Spacing for Separation) -->
+    <section class="py-5">
+        <div class="container">
+            <!-- Free Accommodation & Meals -->
+            <div class="facility-panel">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="mb-3"><i class="fa fa-home facility-icon"></i>Free Accommodation & Meals</h3>
+                        <p class="lead">Providing a nurturing environment with comfortable living and nutritious meals.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fa fa-check-circle facility-icon"></i>Free, well-maintained hostel accommodation</li>
+                            <li><i class="fa fa-check-circle facility-icon"></i>Healthy, nutritious meals provided daily</li>
+                            <li><i class="fa fa-check-circle facility-icon"></i>Safe, supportive environment promoting independence</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stipend Support -->
+            <div class="facility-panel">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="mb-3"><i class="fa fa-money facility-icon"></i>Stipend Support</h3>
+                        <p class="lead">Financial assistance to encourage consistent attendance.</p>
+                        <ul class="list-unstyled">
+                            <li><strong>Residential Trainees:</strong> Rs. 1,500/month</li>
+                            <li><strong>Day Scholars:</strong> Rs. 1,000/month</li>
+                            <li><i class="fa fa-check-circle facility-icon"></i>Helping reduce financial stress</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hostel Accommodation -->
+            <div class="facility-panel">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="mb-3"><i class="fa fa-bed facility-icon"></i>Hostel Accommodation</h3>
+                        <p class="lead">Comfortable living spaces for our trainees.</p>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Capacity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Physically Disabled</td><td>20</td></tr>
+                                    <tr><td>Mentally Challenged</td><td>10</td></tr>
+                                    <tr><td>Visually Impaired (Blind)</td><td>10</td></tr>
+                                    <tr><td>Hearing & Speech Impaired</td><td>10</td></tr>
+                                    <tr><td><strong>Total Capacity</strong></td><td><strong>50 Residents</strong></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="mt-3">Hostel accommodation is for male trainees only. Female trainees are provided pick & drop transport facilities.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comprehensive Support -->
+            <div class="facility-panel">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="mb-3"><i class="fa fa-heart facility-icon"></i>Comprehensive Support</h3>
+                        <p class="lead">Holistic care for every trainee's well-being.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fa fa-check-circle facility-icon"></i><strong>Free Medical Care:</strong> Government hospital treatment available when needed.</li>
+                            <li><i class="fa fa-check-circle facility-icon"></i><strong>Religious & Moral Education:</strong> Developing character through ethical and religious teachings.</li>
+                            <li><i class="fa fa-check-circle facility-icon"></i><strong>Employment Assistance:</strong> Guidance for securing jobs under the 3% disability quota.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Extracurricular Activities -->
+            <div class="facility-panel">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="mb-3"><i class="fa fa-futbol-o facility-icon"></i>Extracurricular Activities</h3>
+                        <p class="lead">Engaging programs for holistic development.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fa fa-check-circle facility-icon"></i><strong>Sports & Physical Activities:</strong> Inclusive sports like wheelchair cricket.</li>
+                            <li><i class="fa fa-check-circle facility-icon"></i><strong>Literary Programs:</strong> Poetry and storytelling sessions.</li>
+                            <li><i class="fa fa-check-circle facility-icon"></i><strong>Cultural Events:</strong> Festivals and group celebrations.</li>
+                            <li><i class="fa fa-check-circle facility-icon"></i><strong>Recreational Outings:</strong> Nasheman Sports Club outings.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Community-Driven Support -->
+            <div class="facility-panel">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="mb-3"><i class="fa fa-users facility-icon"></i>Community-Driven Support</h3>
+                        <p class="lead">Guided by a dedicated advisory committee.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fa fa-check-circle facility-icon"></i>Guide improvements</li>
+                            <li><i class="fa fa-check-circle facility-icon"></i>Ensure transparent operations</li>
+                            <li><i class="fa fa-check-circle facility-icon"></i>Manage donations for student welfare</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    {% include 'footer.html' %}   
+
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const quotes = [
+                "Empowering lives with care and support!",
+                "A nurturing environment for every trainee!",
+                "Building independence through our facilities!",
+                "Comfort and care at the heart of Nasheman!",
+                "Together, we create opportunities for all!"
+            ];
+            let quoteIndex = 0;
+            const quoteElement = document.getElementById('quote');
+
+            if (quoteElement) {
+                function rotateQuote() {
+                    quoteElement.style.opacity = '0'; // Fade out
+                    setTimeout(() => {
+                        quoteElement.textContent = quotes[quoteIndex];
+                        quoteElement.classList.add('fade');
+                        quoteElement.style.opacity = '1'; // Fade in
+                        setTimeout(() => {
+                            quoteElement.classList.remove('fade');
+                        }, 500); // Match animation duration
+                        quoteIndex = (quoteIndex + 1) % quotes.length;
+                    }, 500); // Match transition duration
+                }
+                rotateQuote();
+                setInterval(rotateQuote, 2500); // Total cycle: 500ms fade out + 500ms fade in + 1500ms display
+            } else {
+                console.error('Quote element not found');
+            }
+        });
+    </script>
+</body>
+</html>

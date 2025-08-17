@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <title>Nasheman - Courses</title>
+    <!-- External Libraries -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" crossorigin rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&family=Poppins:wght@500;600;700;800;900&family=Raleway:wght@100;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <style>
+        .dashboard {
+            padding-top: 100px;
+        }
+        .dashboard-banner {
+            background-color: #009970;
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .section_title h2 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            color: #009970;
+            margin-bottom: 10px;
+        }
+        .motivational-quote {
+            font-family: 'Raleway', sans-serif;
+            font-style: italic;
+            font-size: 18px;
+            color: #fff;
+            margin-top: 10px;
+            min-height: 24px;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .motivational-quote.fade {
+            animation: fade 0.5s ease-in-out;
+        }
+        @keyframes fade {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .course_item {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        .course_item:hover {
+            transform: translateY(-5px);
+        }
+        .course_item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .course_item h4 {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 600;
+            color: #333;
+            margin: 15px 20px 5px;
+        }
+        .course_item p {
+            font-family: 'Open Sans', sans-serif;
+            color: #666;
+            font-size: 14px;
+            margin: 0 20px 15px;
+        }
+        .no-courses {
+            text-align: center;
+            font-family: 'Open Sans', sans-serif;
+            color: #666;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .social {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+        .social a {
+            margin: 0 10px;
+            font-size: 24px;
+            color: #444444;
+            transition: color 0.3s ease;
+        }
+        .social a:hover {
+            color: #009970;
+        }
+        @media (max-width: 576px) {
+            .social a {
+                margin: 0 8px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+   <!-- Navbar -->
+<!-- Navbar  -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="navigation">
+    <div class="container-fluid align-items-stretch">
+        <div class="logo">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Nasheman</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item "><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
+                <li class="nav-item active"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
+                <li class="nav-item "><a class="nav-link" href="{{ url_for('courses') }}">Courses</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('events') }}">Events</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('team') }}">Staff</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('facilities') }}">Facilities</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('admissions') }}">Admissions</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
+                {% if session.get('user_type') == 'guardian' %}
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('guardian_settings') }}">Settings</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+{% elif session.get('user_type') == 'admin' %}
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_dashboard') }}">Admin Dashboard</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+{% else %}
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('guardian_signup_page') }}">Sign Up</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('guardian_login_page') }}">Login</a></li>
+{% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <!-- Hero Banner -->
+    <section class="dashboard">
+        <div class="container">
+            <div class="dashboard-banner animate__animated animate__fadeIn">
+                <div class="section_title text-center">
+                    <h2>Our Courses</h2>
+                    <div class="motivational-quote" id="quote"></div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Courses Section -->
+        <div class="container">
+            <div class="section_title text-center animate__animated animate__fadeIn">
+                <h2>Explore Our Courses</h2>
+                <p>Explore our specialized courses designed to cater to diverse learning needs, fostering growth and independence.</p>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        {% if courses %}
+                            {% for course in courses %}
+                            <div class="col-md-4 animate__animated animate__zoomIn">
+                                <div class="course_item">
+                                    {% if course.image_url %}
+                                        <img src="{{ url_for('static', filename=course.image_url) }}" alt="{{ course.name }}" class="img-fluid" />
+                                    {% else %}
+                                        <img src="{{ url_for('static', filename='images/course-placeholder.jpg') }}" alt="Course Placeholder" class="img-fluid" />
+                                    {% endif %}
+                                    <h4>{{ course.name }}</h4>
+                                    <p>{{ course.description }}</p>
+                                    <p><strong>Duration:</strong> {{ course.duration }}</p>
+                                    <p><strong>Level:</strong> {{ course.level }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="col-12">
+                                <p class="no-courses">No courses available at the moment. Stay tuned!</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    {% include 'footer.html' %}   
+
+    <!-- JS Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const quotes = [
+                "Unlock your potential with our tailored courses!",
+                "Every lesson is a step toward independence!",
+                "Learn, grow, and thrive with Nasheman!",
+                "Empowering minds through specialized education!",
+                "Your journey to success starts here!"
+            ];
+            let quoteIndex = 0;
+            const quoteElement = document.getElementById('quote');
+
+            if (quoteElement) {
+                function rotateQuote() {
+                    quoteElement.style.opacity = '0'; // Fade out
+                    setTimeout(() => {
+                        quoteElement.textContent = quotes[quoteIndex];
+                        quoteElement.classList.add('fade');
+                        quoteElement.style.opacity = '1'; // Fade in
+                        setTimeout(() => {
+                            quoteElement.classList.remove('fade');
+                        }, 500); // Match animation duration
+                        quoteIndex = (quoteIndex + 1) % quotes.length;
+                    }, 500); // Match transition duration
+                }
+                rotateQuote();
+                setInterval(rotateQuote, 2500); // Total cycle: 500ms fade out + 500ms fade in + 1500ms display
+            } else {
+                console.error('Quote element not found');
+            }
+        });
+    </script>
+</body>
+</html>

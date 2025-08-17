@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <title>Nasheman - Empowering Every Ability</title>
+    <!-- External Libraries -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Swiper CSS for Testimonials -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" crossorigin rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&family=Poppins:wght@500;600;700;800;900&family=Raleway:wght@100;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <style>
+        /* Global Section Styling */
+        .section_bg {
+            background: #f8f9fa;
+            padding: 80px 0;
+        }
+        .section_title h2 {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 700;
+            color: #333;
+            position: relative;
+            padding-bottom: 15px;
+            font-size: 2.5rem;
+        }
+        .section_title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: #009970;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .section_title p {
+            font-family: 'Open Sans', sans-serif;
+            color: #666;
+            font-size: 1.1rem;
+            margin-top: 15px;
+        }
+        .btn_outline_green {
+            background: transparent;
+            color: #009970;
+            border: 2px solid #009970;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .btn_outline_green:hover {
+            background: #009970;
+            color: #fff;
+            transform: scale(1.05);
+        }
+        /* Hero Section */
+        .quote-carousel {
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 600px;
+            background-image: url('{{ url_for("static", filename="images/banner.jpg") }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        .quote-carousel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .quote-carousel .container {
+            position: relative;
+            z-index: 1;
+        }
+        .quote-carousel h1 {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 700;
+            color: #fff;
+            font-size: 3rem;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+        .quote-carousel .quotes.slider {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.4rem;
+            font-style: italic;
+            color: #fff;
+            padding: 0 20px;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .quote-carousel .btn_apply_now {
+            background: transparent;
+            color: #009970;
+            border: 2px solid #009970;
+            padding: 14px 35px;
+            border-radius: 30px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .quote-carousel .btn_apply_now:hover {
+            background: #009970;
+            color: #fff;
+            transform: scale(1.05);
+        }
+        /* Welcome Section */
+        .welcome .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .welcome .glass-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        .welcome .glass-card i {
+            font-size: 2.5rem;
+            color: #009970;
+            margin-bottom: 1rem;
+        }
+        .welcome .glass-card h4 {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 600;
+            color: #333;
+        }
+        .welcome .glass-card p {
+            font-family: 'Open Sans', sans-serif;
+            color: #666;
+        }
+        /* Courses/Events Sections */
+        .courses, .events {
+            padding: 80px 0;
+        }
+        .course_item, .event_item {
+            background: #fff;
+            border-radius: 15px;
+            border: 2px solid #e9f7ef;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .course_item:hover, .event_item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+            border-color: #009970;
+        }
+        .course_item img, .event_item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .course_item:hover img, .event_item:hover img {
+            transform: scale(1.05);
+        }
+        .course_item h4, .event_item h4 {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 600;
+            color: #333;
+            margin: 20px 25px 10px;
+            font-size: 1.3rem;
+        }
+        .course_item p, .event_item p {
+            font-family: 'Open Sans', sans-serif;
+            color: #666;
+            font-size: 0.95rem;
+            margin: 0 25px 20px;
+        }
+        .no-courses, .no-events {
+            text-align: center;
+            font-family: 'Open Sans', sans-serif;
+            color: #666;
+            font-size: 1.2rem;
+            margin-top: 30px;
+        }
+        /* Testimonial Section */
+        .testimonial {
+            padding: 60px 0;
+            background-color: #f0f4f8;
+        }
+        .testimonial_card {
+            background: linear-gradient(135deg, #ffffff, #f6fffc);
+            border-left: 4px solid #009970;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            margin: 15px 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .testimonial_card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 18px rgba(0, 0, 0, 0.12);
+        }
+        .quote_area {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .testimonial_card p {
+            font-family: 'Open Sans', sans-serif;
+            color: #666;
+            font-size: 15px;
+            line-height: 1.6;
+            margin: 0;
+            font-style: italic;
+        }
+        .testimonial_card .fa-quote-left,
+        .testimonial_card .fa-quote-right {
+            color: #009970;
+            font-size: 18px;
+            margin: 0 8px;
+        }
+        .testimonial_author {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: auto;
+        }
+        .author_info h3 {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 600;
+            color: #333;
+            font-size: 17px;
+            margin: 0;
+        }
+        .author_info h4 {
+            font-family: 'Open Sans', sans-serif;
+            color: #666;
+            font-size: 13px;
+            margin: 5px 0 0;
+        }
+        .author_info h4 i {
+            color: #009970;
+            margin-right: 6px;
+        }
+        /* Gallery Section */
+        .gallery img {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            position: relative;
+        }
+        .gallery img:hover {
+            transform: scale(1.1);
+            opacity: 0.9;
+        }
+        .gallery .col-md-3 {
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .gallery .col-md-3::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 153, 112, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .gallery .col-md-3:hover::after {
+            opacity: 1;
+        }
+        /* CTA Section */
+        .cta {
+            background: #f8f9fa;
+            padding: 60px 0;
+        }
+        .cta h2 {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 700;
+            color: #333;
+            font-size: 2.5rem;
+        }
+        .cta p {
+            font-family: 'Open Sans', sans-serif;
+            color: #666;
+            font-size: 1.1rem;
+        }
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+        }
+        .contact .info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        .contact .info i {
+            font-size: 2.5rem;
+            color: #009970;
+            margin-right: 20px;
+            line-height: 1;
+            display: inline-block;
+            font-family: 'FontAwesome' !important;
+            background: #fff;
+            border-radius: 50%;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .contact .info i:hover {
+            transform: scale(1.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .contact .info_inner h4 {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 600;
+            color: #333;
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        .contact .info_inner p {
+            font-family: 'Open Sans', sans-serif;
+            color: #666;
+            font-size: 1rem;
+        }
+        .contact .form-control {
+            border: 1px solid #009970;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .contact .form-control:focus {
+            border-color: #00cc99;
+            box-shadow: 0 0 8px rgba(0, 153, 112, 0.3);
+        }
+        .contact button[type="submit"] {
+            background: #009970;
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 600;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        .contact button[type="submit"]:hover {
+            background: #00cc99;
+            transform: scale(1.05);
+        }
+        .contact .alert-success {
+            background: #e9f7ef;
+            border: 1px solid #009970;
+            color: #333;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 1rem;
+        }
+        .contact iframe {
+            border: 2px solid #009970;
+            border-radius: 10px;
+            height: 400px;
+        }
+        /* Footer */
+        .footer_top {
+            background: #333;
+            color: #fff;
+            padding: 60px 0;
+        }
+        .footer_contact h3, .footer_links h4, .footer_newsletter h4 {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        .footer_contact p, .footer_links ul li a, .footer_newsletter p {
+            font-family: 'Open Sans', sans-serif;
+            color: #ccc;
+        }
+        .footer_links ul li {
+            margin-bottom: 10px;
+        }
+        .footer_links ul li i {
+            color: #009970;
+            margin-right: 10px;
+        }
+        .footer_newsletter form {
+            display: flex;
+        }
+        .footer_newsletter input[type="email"] {
+            border: 1px solid #009970;
+            border-radius: 10px 0 0 10px;
+            padding: 12px;
+            flex: 1;
+        }
+        .footer_newsletter input[type="email"]:focus {
+            border-color: #00cc99;
+            box-shadow: 0 0 8px rgba(0, 153, 112, 0.3);
+        }
+        .footer_newsletter input[type="submit"] {
+            background: #009970;
+            color: #fff;
+            border: none;
+            border-radius: 0 10px 10px 0;
+            padding: 12px 20px;
+            font-family: 'Open Sans', sans-serif;
+            transition: background 0.3s ease;
+        }
+        .footer_newsletter input[type="submit"]:hover {
+            background: #00cc99;
+        }
+        .social a {
+            margin: 0 15px;
+            font-size: 1.5rem;
+            color: #ccc;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .social a:hover {
+            color: #009970;
+            transform: scale(1.2);
+        }
+        /* Navbar Fixes */
+        #navigation {
+            max-width: 100vw; /* Prevent navbar from exceeding viewport */
+            overflow-x: hidden; /* Hide horizontal overflow */
+        }
+        .navbar-nav {
+            flex-wrap: wrap; /* Allow items to wrap if needed */
+            max-width: 100%; /* Constrain to container width */
+        }
+        .navbar-nav .nav-link {
+            padding: 0.5rem 0.7rem; /* Reduced padding for compactness */
+            font-size: 0.95rem; /* Smaller font size */
+            font-family: 'Open Sans', sans-serif;
+        }
+        @media (max-width: 1200px) {
+            .navbar-nav .nav-link {
+                padding: 0.5rem 0.6rem; /* Tighter padding for medium screens */
+                font-size: 0.9rem; /* Smaller font for medium screens */
+            }
+        }
+        @media (max-width: 992px) {
+            .navbar-nav {
+                flex-direction: column; /* Stack items in collapsed menu */
+                align-items: flex-start; /* Align items in hamburger menu */
+            }
+            .navbar-nav .nav-link {
+                font-size: 1rem; /* Restore font size for readability in collapsed menu */
+            }
+        }
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .quote-carousel {
+                min-height: 400px;
+            }
+            .quote-carousel h1 {
+                font-size: 2rem;
+            }
+            .quote-carousel .quotes.slider {
+                font-size: 1.2rem;
+            }
+            .section_title h2 {
+                font-size: 2rem;
+            }
+            .course_item, .event_item {
+                margin-bottom: 20px;
+            }
+            .testimonial_card {
+                margin: 10px 5px;
+                padding: 20px;
+                min-height: 250px;
+            }
+            .testimonial_card p {
+                font-size: 14px;
+            }
+            .author_info h3 {
+                font-size: 16px;
+            }
+            .author_info h4 {
+                font-size: 12px;
+            }
+            .contact .info i {
+                font-size: 2rem;
+                padding: 12px;
+            }
+            .contact iframe {
+                height: 300px;
+            }
+        }
+        @media (max-width: 576px) {
+            .quote-carousel {
+                min-height: 300px;
+            }
+            .quote-carousel h1 {
+                font-size: 1.8rem;
+            }
+            .quote-carousel .quotes.slider {
+                font-size: 1rem;
+            }
+            .social a {
+                margin: 0 10px;
+                font-size: 1.2rem;
+            }
+            .course_item img, .event_item img {
+                height: 180px;
+            }
+            .testimonial_card {
+                margin: 10px 0;
+            }
+            .contact .info i {
+                font-size: 1.8rem;
+                padding: 10px;
+            }
+            .contact .form-control {
+                font-size: 0.9rem;
+            }
+            .contact button[type="submit"] {
+                padding: 10px 25px;
+            }
+        }
+        /* Popup Modal Styles */
+        .popup-modal .modal-dialog {
+            max-width: 350px;
+        }
+        .popup-modal .modal-content {
+            border-radius: 8px;
+        }
+        .popup-modal .modal-header {
+            background: #009970;
+            color: #fff;
+            padding: 10px;
+        }
+        .popup-modal .modal-header.info { background: #009970; }
+        .popup-modal .modal-header.warning { background: #ffc107; }
+        .popup-modal .modal-header.event { background: #dc3545; }
+        .popup-modal .modal-body {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            flex-direction: row;
+        }
+        .popup-modal .modal-body img {
+            max-width: 60px;
+            max-height: 60px;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+        .popup-modal .modal-body p#popupMessage {
+            margin: 0;
+            font-size: 0.8rem;
+            flex: 1;
+            line-height: 1.3;
+        }
+        .popup-modal .modal-footer {
+            padding: 8px;
+        }
+        .popup-modal .modal-footer .btn {
+            padding: 6px 15px;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar  -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="navigation">
+    <div class="container-fluid align-items-stretch">
+        <div class="logo">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Nasheman</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item "><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
+                <li class="nav-item active"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
+                <li class="nav-item "><a class="nav-link" href="{{ url_for('courses') }}">Courses</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('events') }}">Events</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('team') }}">Staff</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('facilities') }}">Facilities</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('admissions') }}">Admissions</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
+                {% if session.get('user_type') == 'guardian' %}
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('guardian_settings') }}">Settings</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+{% elif session.get('user_type') == 'admin' %}
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_dashboard') }}">Admin Dashboard</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+{% else %}
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('guardian_signup_page') }}">Sign Up</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('guardian_login_page') }}">Login</a></li>
+{% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <!-- Popup Modal -->
+    <div class="modal fade popup-modal" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="popupModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img id="popupImage" src="" alt="Popup Image" style="display: none;">
+                    <p id="popupMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quote Carousel Hero Section -->
+    <section class="quote-carousel text-center d-flex align-items-center justify-content-center">
+        <div class="container">
+            <h1 class="animate__animated animate__bounceInDown">A World Where Every Ability Shines</h1>
+            <div class="quotes slider">
+                <div>“Every individual is a different kind of flower, and all together make this world a beautiful garden.”</div>
+            </div>
+            {% if session.get('user_type') == 'guardian' %}
+                <a href="{{ url_for('apply_now') }}" class="btn_apply_now animate__animated animate__fadeInUp">Apply Now</a>
+            {% else %}
+                <a href="{{ url_for('guardian_signup_page') }}" class="btn_apply_now animate__animated animate__fadeInUp">Apply Now</a>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section class="welcome section_bg">
+        <div class="container text-center">
+            <div class="section_title animate__animated animate__fadeIn">
+                <h2>Our Mission</h2>
+                <p>Since 1989, Nasheman has empowered over 2,500 differently-abled individuals through vocational training and supportive care.</p>
+            </div>
+            <div class="row">
+                <div class="col-md-4 animate__animated animate__fadeInLeft" style="animation-delay: 0.2s;">
+                    <div class="welcome_box glass-card">
+                        <i class="fa fa-heart"></i>
+                        <h4>Inclusive Education</h4>
+                        <p>Customized courses designed for every person's unique needs.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
+                    <div class="welcome_box glass-card">
+                        <i class="fa fa-users"></i>
+                        <h4>Community Support</h4>
+                        <p>A caring community of educators, parents, and peers.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 animate__animated animate__fadeInRight" style="animation-delay: 0.6s;">
+                    <div class="welcome_box glass-card">
+                        <i class="fa fa-star"></i>
+                        <h4>Empowerment</h4>
+                        <p>Building confidence and skills for a brighter future.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses">
+        <div class="container">
+            <div class="section_title text-center animate__animated animate__fadeIn">
+                <h2>Our Courses</h2>
+                <p>Explore our specialized courses designed to cater to diverse learning needs, fostering growth and independence.</p>
+            </div>
+            <div class="row">
+                {% if courses %}
+                    {% for course in courses[:3] %}
+                    <div class="col-md-4 animate__animated animate__zoomIn" style="animation-delay: {{ '{:.1f}'.format(loop.index0 * 0.2) }}s;">
+                        <div class="course_item">
+                            <img src="{{ url_for('static', filename=course.image_url or 'images/course-placeholder.jpg') }}" alt="{{ course.name }}" class="img-fluid" />
+                            <h4>{{ course.name }}</h4>
+                            <p>{{ course.description }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-12">
+                        <p class="no-courses">No courses available at the moment. Stay tuned!</p>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="text-center mt-5">
+                <a href="{{ url_for('courses') }}" class="btn_outline_green animate__animated animate__pulse" style="animation-delay: 0.2s;">View All Courses</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="events section_bg">
+        <div class="container">
+            <div class="section_title text-center animate__animated animate__fadeIn">
+                <h2>Upcoming Events</h2>
+                <p>Join us for fun, inclusive events that celebrate our community and inspire growth.</p>
+            </div>
+            <div class="row">
+                {% if events %}
+                    {% for event in events %}
+                    <div class="col-md-4 animate__animated animate__fadeInUp" style="animation-delay: {{ '{:.1f}'.format(loop.index0 * 0.2) }}s;">
+                        <div class="event_item">
+                            <img src="{{ url_for('static', filename=event.image_url or 'images/event-placeholder.jpg') }}" alt="{{ event.title }}" class="img-fluid" />
+                            <h4>{{ event.title }}</h4>
+                            <p>{{ event.date }} | {{ event.description }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-12">
+                        <p class="no-events">No upcoming events at the moment. Stay tuned!</p>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="text-center mt-5">
+                <a href="{{ url_for('events') }}" class="btn_outline_green animate__animated animate__pulse" style="animation-delay: 0.2s;">See All Events</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section class="testimonial section_bg">
+        <div class="container">
+            <div class="section_title text-center animate__animated animate__fadeIn">
+                <h2>What Our Community Says</h2>
+                <p>Hear from students about the impact of Nasheman.</p>
+            </div>
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="testimonial_card">
+                            <div class="quote_area">
+                                <p><i class="fa fa-quote-left"></i> Thanks to Nasheman, I secured a stable job at Sapphire Finishing Mills. It’s a great step forward for my career and family. <i class="fa fa-quote-right"></i></p>
+                            </div>
+                            <div class="testimonial_author">
+                                <div class="author_info">
+                                    <h3>Kamran Hanif</h3>
+                                    <h4><i class="fa fa-briefcase"></i>Placed at Sapphire Finishing Mills</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial_card">
+                            <div class="quote_area">
+                                <p><i class="fa fa-quote-left"></i> I never imagined working at a reputable organization like Sapphire. I’m truly grateful to the team at Nasheman. <i class="fa fa-quote-right"></i></p>
+                            </div>
+                            <div class="testimonial_author">
+                                <div class="author_info">
+                                    <h3>Shahzeaib</h3>
+                                    <h4><i class="fa fa-briefcase"></i>Placed at Sapphire Finishing Mills</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial_card">
+                            <div class="quote_area">
+                                <p><i class="fa fa-quote-left"></i> With the help of Nasheman, I gained the confidence and skills to work at Sapphire. It has been life-changing. <i class="fa fa-quote-right"></i></p>
+                            </div>
+                            <div class="testimonial_author">
+                                <div class="author_info">
+                                    <h3>M. Faheem Shahzad</h3>
+                                    <h4><i class="fa fa-briefcase"></i>Placed at Sapphire Finishing Mills</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial_card">
+                            <div class="quote_area">
+                                <p><i class="fa fa-quote-left"></i> My job at Sapphire is not just work—it’s dignity and growth. Thank you, Nasheman. <i class="fa fa-quote-right"></i></p>
+                            </div>
+                            <div class="testimonial_author">
+                                <div class="author_info">
+                                    <h3>Mohsin Rehman</h3>
+                                    <h4><i class="fa fa-briefcase"></i>Placed at Sapphire Finishing Mills</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial_card">
+                            <div class="quote_area">
+                                <p><i class="fa fa-quote-left"></i> I joined Carrefour thanks to Nasheman’s support. The experience and environment are amazing. <i class="fa fa-quote-right"></i></p>
+                            </div>
+                            <div class="testimonial_author">
+                                <div class="author_info">
+                                    <h3>Muhammad Amir Shehzad</h3>
+                                    <h4><i class="fa fa-briefcase"></i>Placed at Carrefour Cargo Store</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery section_bg">
+        <div class="container">
+            <div class="section_title text-center animate__animated animate__fadeIn">
+                <h2>Life at Nasheman</h2>
+                <p>Glimpses of learning, growth, and empowerment at Nasheman.</p>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 mb-4 animate__animated animate__zoomIn" style="animation-delay: 0.2s;">
+                    <img src="{{ url_for('static', filename='images/gallery1.jpg') }}" class="img-fluid rounded shadow-sm" alt="Gallery Image">
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4 animate__animated animate__zoomIn" style="animation-delay: 0.4s;">
+                    <img src="{{ url_for('static', filename='images/gallery2.jpg') }}" class="img-fluid rounded shadow-sm" alt="Gallery Image">
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4 animate__animated animate__zoomIn" style="animation-delay: 0.6s;">
+                    <img src="{{ url_for('static', filename='images/gallery3.jpg') }}" class="img-fluid rounded shadow-sm" alt="Gallery Image">
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4 animate__animated animate__zoomIn" style="animation-delay: 0.8s;">
+                    <img src="{{ url_for('static', filename='images/gallery4.jpg') }}" class="img-fluid rounded shadow-sm" alt="Gallery Image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admission Call-to-Action -->
+    <section class="cta section_bg text-center">
+        <div class="container">
+            <h2 class="animate__animated animate__fadeIn">Ready to Join Nasheman?</h2>
+            <p class="animate__animated animate__fadeIn" style="animation-delay: 0.2s;">Eligible individuals can apply for skill development programs and begin their journey toward self-reliance.</p>
+            <div class="mt-5">
+                <a href="{{ url_for('admissions') }}" class="btn_outline_green animate__animated animate__pulse" style="animation-delay: 0.4s;">Apply for Admission</a>
+                <a href="{{ url_for('contact') }}" class="btn_outline_green animate__animated animate__pulse" style="animation-delay: 0.6s;">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact section_bg">
+        <div class="container">
+            <div class="section_title text-center animate__animated animate__fadeIn">
+                <h2>Contact Us</h2>
+                <p>Reach out to learn more about our programs or to enroll.</p>
+            </div>
+            {% if success %}
+            <div class="alert alert-success text-center animate__animated animate__fadeIn">
+                Your message has been sent successfully!
+            </div>
+            {% endif %}
+            <div class="row">
+                <div class="col-lg-6 animate__animated animate__fadeInLeft" style="animation-delay: 0.2s;">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54446.51735197271!2d74.3089375!3d31.4415625!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391901337f7a699f%3A0x2eca57f93bb85390!2sNasheeman!5e0!3m2!1sen!2s!4v1700244046381!5m2!1sen!2s" style="border: 2px solid #009970; border-radius: 10px; width: 100%; height: 400px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="col-lg-6">
+                    <div class="info mt-4 animate__animated animate__fadeInRight" style="animation-delay: 0.2s;">
+                        <i class="fa fa-map-marker"></i>
+                        <div class="info_inner">
+                            <h4>Location:</h4>
+                            <p>Social Welfare Complex, Sector H-1, Block No. 3, Umar Chowk, Township, Lahore</p>
+                        </div>
+                    </div>
+                    <div class="info mt-4 animate__animated animate__fadeInRight" style="animation-delay: 0.4s;">
+                        <i class="fa fa-envelope"></i>
+                        <div class="info_inner">
+                            <h4>Email:</h4>
+                            <p>nasheman.swc.dl@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="info mt-4 animate__animated animate__fadeInRight" style="animation-delay: 0.6s;">
+                        <i class="fa fa-phone"></i>
+                        <div class="info_inner">
+                            <h4>Call:</h4>
+                            <p>0333-4529185</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form method="POST" action="{{ url_for('contact_submit') }}" class="email_form mt-5 animate__animated animate__fadeInUp" style="animation-delay: 0.8s;">
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Your Email" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="subject" class="form-control" id="subject" placeholder="Subject" required>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit">Send Message</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    {% include 'footer.html' %}   
+
+    <!-- JS Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            // Quote Slider
+            $('.quotes').slick({
+                autoplay: true,
+                autoplaySpeed: 4000,
+                arrows: false,
+                fade: true,
+                speed: 1000
+            });
+            // Testimonial Slider
+            var swiper = new Swiper(".mySwiper", {
+                slidesPerView: 1,
+                loop: true,
+                autoplay: {
+                    delay: 6000,
+                    disableOnInteraction: false
+                },
+                speed: 1000,
+                breakpoints: {
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 20
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 30
+                    }
+                }
+            });
+            // Popup Modal
+            $.get('{{ url_for("get_popups") }}', function(data) {
+                if (data.popups && data.popups.length > 0) {
+                    let index = 0;
+                    function showPopup() {
+                        if (index >= data.popups.length) return;
+                        const popup = data.popups[index];
+                        $('#popupModalLabel').text(popup.title || 'Notification');
+                        $('#popupMessage').text(popup.message);
+                        if (popup.image_url) {
+                            $('#popupImage').attr('src', '{{ url_for("static", filename="") }}' + popup.image_url).show();
+                        } else {
+                            $('#popupImage').hide();
+                        }
+                        $('#popupModal .modal-header').removeClass('info warning event').addClass(popup.type || 'info');
+                        $('#popupModal').modal({ backdrop: 'static', keyboard: false });
+                        $('#popupModal').modal('show');
+                        $('#popupModal').on('hidden.bs.modal', function() {
+                            $(this).off('hidden.bs.modal');
+                            index++;
+                            showPopup();
+                        });
+                    }
+                    showPopup();
+                }
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                console.error('Error fetching popups:', textStatus, errorThrown);
+            });
+        });
+    </script>
+</body>
+</html>

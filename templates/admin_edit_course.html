@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Course - Nasheman</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&family=Poppins:ital,wght@0,500;0,600;0,700;0,800;0,900;1,100&family=Raleway+Dots&family=Raleway:ital,wght@0,100;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+   <!-- Sidebar -->
+    <div class="sidebar active" id="sidebar">
+        <div class="sidebar-header">
+            <a href="{{ url_for('admin_dashboard') }}">Nasheman</a>
+        </div>
+        <div class="sidebar-nav">
+            <a href="{{ url_for('admin_dashboard') }}" ><i class="fa fa-tachometer"></i> Dashboard</a>
+            <a href="{{ url_for('admin_courses') }}" class="active"><i class="fa fa-book"></i> Courses</a>
+            <a href="{{ url_for('admin_staff') }}"><i class="fa fa-users"></i> Staff</a>
+            <a href="{{ url_for('admin_events') }}"><i class="fa fa-calendar"></i> Events</a>
+            <a href="{{ url_for('admin_contacts') }}"><i class="fa fa-envelope"></i> Messages</a>
+            <a href="{{ url_for('admin_popups') }}"><i class="fa fa-bell"></i> Popups</a>
+            <a href="{{ url_for('admin_admissions') }}"><i class="fa fa-file-text"></i> Admissions</a>
+            <a href="{{ url_for('logout') }}"><i class="fa fa-sign-out"></i> Logout</a>
+        </div>
+    </div>
+
+    <!-- Toggle Button -->
+    <button class="toggle-btn" id="toggleBtn"><i class="fa fa-bars"></i></button>
+
+    <!-- Main Content -->
+    <div class="main-content active" id="mainContent">
+        <!-- Dashboard Banner -->
+        <section class="dashboard" style="padding-top: 30px;">
+            <div class="container">
+                <div class="dashboard-banner animate__animated animate__fadeIn">
+                    <div class="section_title text-center">
+                        <h2>Course Management</h2>
+                        <div class="motivational-quote animate__animated animate__fadeIn" id="quote"></div>
+                    </div>
+                </div>
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="flash-message {{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+    <!-- Edit Course Form -->
+        <div class="container">
+            <div class="card">
+                <h4>Edit Course</h4>
+                <form action="{{ url_for('edit_course', course_id=course.course_id) }}" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="course_id">Course ID</label>
+                        <input type="text" class="form-control read-only" id="course_id" value="{{ course.course_id }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ course.name }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" required>{{ course.description }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="duration">Duration</label>
+                        <input type="text" class="form-control" id="duration" name="duration" value="{{ course.duration }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="level">Level</label>
+                        <input type="text" class="form-control" id="level" name="level" value="{{ course.level }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Course Image</label>
+                        <input type="file" class="form-control-file" id="image" name="image" accept="image/*">
+                        {% if course.image_url %}
+                            <p>Current Image:</p>
+                            <img src="{{ url_for('static', filename=course.image_url) }}" alt="Course Image" class="current-image">
+                            <input type="hidden" name="existing_image_url" value="{{ course.image_url }}">
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+ 
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sidebar toggle
+            const toggleBtn = document.getElementById('toggleBtn');
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+
+            if (toggleBtn && sidebar && mainContent) {
+                toggleBtn.addEventListener('click', () => {
+                    sidebar.classList.toggle('active');
+                    mainContent.classList.toggle('active');
+                });
+            } else {
+                console.error('Sidebar, toggle button, or main content not found');
+            }
+
+            // Close flash messages
+            document.querySelectorAll('.flash-message .close').forEach(closeBtn => {
+                closeBtn.addEventListener('click', () => {
+                    closeBtn.parentElement.style.display = 'none';
+                });
+            });
+            // Rotate motivational quotes
+            const quotes = [
+                "Empower learning with every course!",
+                "Your curriculum shapes their future!",
+                "Teach, inspire, transform!",
+                "Knowledge is power—share it!",
+                "Create a path to success!"
+            ];
+            let quoteIndex = 0;
+            const quoteElement = document.getElementById('quote');
+
+            if (quoteElement) {
+                function rotateQuote() {
+                    quoteElement.style.opacity = '0'; // Fade out
+                    setTimeout(() => {
+                        quoteElement.textContent = quotes[quoteIndex];
+                        quoteElement.classList.add('fade');
+                        quoteElement.style.opacity = '1'; // Fade in
+                        setTimeout(() => {
+                            quoteElement.classList.remove('fade');
+                        }, 500); // Match animation duration
+                        quoteIndex = (quoteIndex + 1) % quotes.length;
+                    }, 500); // Match transition duration
+                }
+                rotateQuote();
+                setInterval(rotateQuote, 2500); // Total cycle: 500ms fade out + 500ms fade in + 1500ms display
+            } else {
+                console.error('Quote element not found');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<footer id="footer" class="footer" role="contentinfo">
+    <div class="container">
+        <div class="row footer-columns">
+            <!-- Organization Info: Contact -->
+            <div class="col-md-3 mb-4">
+                <div class="header-wrapper">
+                    <h5 class="text-uppercase fw-bold">Nasheman</h5>
+                    <hr class="mt-1 mb-3" />
+                </div>
+                <p class="text-secondary mb-3 fw-semibold">Empowering Lives Through Inclusive Education</p>
+                <address>
+                    <ul class="list-unstyled text-secondary">
+                        <li>
+                            <i class="fas fa-map-marker-alt fa fa-map-marker me-2" aria-hidden="true"></i>
+                            <span class="icon-fallback">[Map]</span>
+                            <a href="https://maps.app.goo.gl/FBUz8XYikvAhaGLy6" class="text-secondary" target="_blank" rel="noopener" aria-label="View location on Google Maps">Social Welfare Complex, Sector H-1, Block No. 3, Umar Chowk, Township, Lahore</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone fa fa-phone me-2" aria-hidden="true"></i>
+                            <span class="icon-fallback">[Phone]</span>
+                            <a href="tel:+923334529185" class="text-secondary" aria-label="Call us">0333-4529185</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope fa fa-envelope me-2" aria-hidden="true"></i>
+                            <span class="icon-fallback">[Email]</span>
+                            <a href="mailto:nasheman.swc.dl@gmail.com" class="text-secondary" aria-label="Email us">nasheman.swc.dl@gmail.com</a>
+                        </li>
+                    </ul>
+                </address>
+            </div>
+            <!-- Organization Info: Connect -->
+            <div class="col-md-3 mb-4">
+                <div class="header-wrapper">
+                    <h5 class="text-uppercase fw-bold">Connect</h5>
+                    <hr class="mt-1 mb-3" />
+                </div>
+                <p class="text-secondary mb-2">Mon-Fri: 9 AM - 5 PM</p>
+                <p class="text-secondary mb-3">Social Welfare Department, Government of the Punjab</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/NashemanLahore/" class="text-secondary social-icon" target="_blank" rel="noopener" aria-label="Follow us on Facebook">
+                        <i class="fab fa-facebook-f fa fa-facebook me-2" aria-hidden="true"></i>
+                        <span class="icon-fallback">[Facebook]</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Quick Links -->
+            <div class="col-md-3 mb-4">
+                <div class="header-wrapper">
+                    <h5 class="text-uppercase fw-bold">Quick Links</h5>
+                    <hr class="mt-1 mb-3" />
+                </div>
+                <nav aria-label="Footer quick links">
+                    <ul class="list-unstyled">
+                        <li><a href="{{ url_for('admissions') }}" class="text-secondary">Apply Now</a></li>
+                        <li><a href="{{ url_for('contact') }}" class="text-secondary">Contact Us</a></li>
+                        <li><a href="{{ url_for('about') }}" class="text-secondary">Our Story</a></li>
+                        <li><a href="{{ url_for('facilities') }}" class="text-secondary">Facilities</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- Our Services -->
+            <div class="col-md-3 mb-4">
+                <div class="header-wrapper">
+                    <h5 class="text-uppercase fw-bold">Our Services</h5>
+                    <hr class="mt-1 mb-3" />
+                </div>
+                <p class="text-secondary mb-3 fw-semibold">Explore our core services for inclusive education.</p>
+                <ul class="list-unstyled">
+                    <li><a href="{{ url_for('courses') }}" class="text-secondary">Education Services</a></li>
+                    <li><a href="{{ url_for('events') }}" class="text-secondary">Community Events</a></li>
+                    <li><a href="{{ url_for('facilities') }}" class="text-secondary">Support Facilities</a></li>
+                    <li><a href="{{ url_for('contact') }}" class="text-secondary">Volunteer Opportunities</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Copyright -->
+        <div class="footer-bottom mt-4 text-center text-secondary">
+            <p>© 2025 Nasheman, Government of the Punjab. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .footer {
+        background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+        padding: 3rem 0;
+        font-family: 'Open Sans', sans-serif;
+        color: #222;
+        border-top: 1px solid #e0e0e0;
+    }
+    .footer .container {
+        padding-left: 10px;
+        padding-right: 10px;
+        max-width: 1200px;
+    }
+    .footer .header-wrapper {
+        display: inline-block;
+    }
+    .footer h5 {
+        font-family: 'Raleway', sans-serif;
+        font-weight: 800;
+        font-size: 1.4rem;
+        color: #222;
+        margin-bottom: 0.5rem;
+        text-align: left;
+    }
+    .footer hr {
+        margin-top: 0.5rem;
+        margin-bottom: 1.5rem;
+        margin-left: 0;
+        width: 100%;
+        background-color: #009970;
+        height: 2px;
+        border: none;
+    }
+    .footer p, .footer a {
+        font-size: 0.95rem;
+        color: #222;
+        text-decoration: none;
+        transition: color 0.3s ease, border-color 0.3s ease;
+        text-align: left;
+    }
+    .footer .fw-semibold {
+        font-weight: 600;
+    }
+    .footer a {
+        position: relative;
+        display: inline-block;
+    }
+    .footer a:hover, .footer a:focus {
+        color: #00cc99;
+        outline: none;
+    }
+    .footer a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -2px;
+        left: 0;
+        background-color: #00cc99;
+        transition: width 0.3s ease;
+    }
+    .footer a:hover::after, .footer a:focus::after {
+        width: 100%;
+    }
+    .footer-columns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        justify-content: space-between;
+    }
+    .footer .col-md-3 {
+        flex: 1;
+        min-width: 180px;
+        max-width: 22%;
+    }
+    .footer address ul li {
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: flex-start;
+    }
+    .footer address i.fas, .footer address i.fa, .footer .social-links i.fab, .footer .social-links i.fa {
+        color: #009970 !important;
+        width: 1.4rem;
+        text-align: center;
+        font-size: 1.1rem;
+        margin-right: 0.75rem;
+        display: inline-block !important;
+        vertical-align: middle;
+        font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Brands', 'FontAwesome' !important;
+        font-weight: 900 !important;
+    }
+    .footer .social-links .social-icon {
+        display: inline-block;
+        width: 2.2rem;
+        height: 2.2rem;
+        line-height: 2.2rem;
+        text-align: center;
+        border-radius: 50%;
+        background: #e9ecef;
+        transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .footer .social-links i.fab, .footer .social-links i.fa {
+        font-size: 1.1rem;
+        color: #009970 !important;
+    }
+    .footer .social-links a:hover, .footer .social-links a:focus {
+        background: #009970;
+        transform: scale(1.1);
+    }
+    .footer .social-links a:hover i, .footer .social-links a:focus i {
+        color: #fff !important;
+    }
+    .footer .icon-fallback {
+        display: none;
+        font-size: 0.95rem;
+        color: #222;
+        margin-right: 0.75rem;
+    }
+    .footer i:not(.fas):not(.fab):not(.fa) + .icon-fallback {
+        display: inline-block !important;
+    }
+    .footer .list-unstyled li {
+        margin-bottom: 0.75rem;
+    }
+    .footer-bottom {
+        border-top: 1px solid #e0e0e0;
+        padding-top: 1.5rem;
+    }
+    .footer-bottom p {
+        font-size: 0.9rem;
+        margin-bottom: 0;
+        font-weight: 400;
+    }
+    /* Responsive Adjustments */
+    @media (max-width: 992px) {
+        .footer .col-md-3 {
+            max-width: 50%;
+            margin-bottom: 2rem;
+        }
+        .footer h5 {
+            font-size: 1.3rem;
+        }
+        .footer p, .footer a {
+            font-size: 0.9rem;
+        }
+        .footer .social-links .social-icon {
+            width: 2rem;
+            height: 2rem;
+            line-height: 2rem;
+        }
+    }
+    @media (max-width: 576px) {
+        .footer {
+            padding: 2rem 0;
+        }
+        .footer .col-md-3 {
+            max-width: 100%;
+        }
+        .footer h5 {
+            font-size: 1.2rem;
+        }
+        .footer p, .footer a {
+            font-size: 0.85rem;
+        }
+        .footer-bottom p {
+            font-size: 0.8rem;
+        }
+        .footer address i.fas, .footer address i.fa, .footer .social-links i.fab, .footer .social-links i.fa {
+            font-size: 1rem !important;
+            width: 1.2rem;
+        }
+    }
+</style>
